@@ -23,4 +23,11 @@ async function run() {
   }
 }
 
-module.exports = {run, db}; // ✅ Export the function, not the result of calling it
+function getDb() {
+    if (!db) {
+        throw new Error('Database not initialized! Call connectToMongoDB first.');
+    }
+    return db;
+}
+
+module.exports = {run, getDb};

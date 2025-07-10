@@ -14,10 +14,11 @@ app.use("/ok", (req, res) => {
     res.send("ok in")
 }
 )
+run()
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-run()
 
 // .then(() => {
 //     console.log(`server connected to MongoDB`);
