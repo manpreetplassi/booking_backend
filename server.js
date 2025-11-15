@@ -3,25 +3,19 @@ const { run } = require("./config/db");
 const express = require("express");
 const login = require("./controller/user");
 const router = require("./routes/user");
+const appointments = require("./routes/appointments");
 const bodyParser = require("body-parser");
+const cors = require("cors")
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.use(express.json())
-// app.use(express.bodyParser())
+app.use(cors())
 app.use("/", router)
-app.use("/ok", (req, res) => {
-    res.send("ok in")
-}
-)
+app.use("/appointments", appointments)
+
 run()
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-// .then(() => {
-//     console.log(`server connected to MongoDB`);
-// }).catch((err) => {
-//     console.error("Failed to connect to MongoDB", err);
-// });

@@ -1,6 +1,7 @@
 const { createAppointment, getAppointment } = require("../controller/appointments")
 const router = require("express").Router()
 
-router.post("/create_appointment", createAppointment())
-router.patch("/appointments", getAppointment())
+router.post("/create", createAppointment)
+router.patch("/get", getAppointment)
+
 module.exports = router
