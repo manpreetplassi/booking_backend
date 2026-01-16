@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: nest_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user123
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: my_database
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+
+#   version: '3.8'
+# services:
+#   db:
+#     image: postgres:15
+#     container_name: nest_postgres
+#     restart: always
+#     environment:
+#       POSTGRES_USER: user123
+#       POSTGRES_PASSWORD: password123
+#       POSTGRES_DB: my_database
+#     ports:
+#       - '5432:5432'
+#     volumes:
+#       # CHANGE THIS LINE: 
+#       # ./pgdata is the folder that will appear on your PC
+#       - ./pgdata:/var/lib/postgresql/data
+
+# # REMOVE the global volumes block that was here
