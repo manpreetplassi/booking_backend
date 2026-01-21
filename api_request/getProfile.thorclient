@@ -1,0 +1,64 @@
+{
+  "readme": "To open this file inside VSCode, you need to install Thor Client extension https://thorclient.com/",
+  "request": {
+    "url": {
+      "raw": "http://localhost:3000/user/profile",
+      "query": []
+    },
+    "body": {
+      "mode": "raw",
+      "options": {
+        "raw": {
+          "language": "json"
+        }
+      },
+      "raw": "{\r\n  \"email\": \"test2@gmail.com\",\r\n  \"password\": \"12@@#wsddjWW\"\r\n}"
+    },
+    "header": [
+      {
+        "id": "c235d324-56a5-4c00-a4b6-ec79e66dbdec",
+        "key": "Content-Type",
+        "value": "application/json",
+        "disabled": false,
+        "type": "text"
+      },
+      {
+        "id": "991d1e9c-de8c-44a3-a75c-78603b1b74b3",
+        "key": "Cookie",
+        "value": "session_id=fd66a291-8598-43e1-a7e0-d46ac0c13dcd",
+        "disabled": false,
+        "type": "text"
+      }
+    ],
+    "method": "GET"
+  },
+  "event": {
+    "assert": [
+      {
+        "key": "response.status",
+        "value": "200",
+        "disabled": false,
+        "type": "text",
+        "operator": "=="
+      }
+    ],
+    "setvars": [
+      {
+        "id": "f881e972-b92b-4fbb-bdae-c87fe60a1dba",
+        "key": "",
+        "value": "",
+        "disabled": false,
+        "type": "text"
+      }
+    ]
+  },
+  "response": {
+    "keys": [
+      "id",
+      "email",
+      "username",
+      "avatar_url",
+      "created_at"
+    ]
+  }
+}

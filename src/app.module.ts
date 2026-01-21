@@ -8,9 +8,9 @@ import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
-     TypeOrmModule.forRoot({
+    TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'localhost', 
       port: 5432,
       username: 'user123',
       password: 'password123',
@@ -22,8 +22,7 @@ import { DataSource } from 'typeorm';
     AuthModule, UserModule
   ],
   controllers: [AppController],
-  providers: [AppService],
-})
+  providers: [AppService],})
 export class AppModule {
-    constructor(private dataSource: DataSource) {}
+  constructor(private dataSource: DataSource) { }
 }

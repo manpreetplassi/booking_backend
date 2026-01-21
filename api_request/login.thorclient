@@ -2,8 +2,17 @@
   "readme": "To open this file inside VSCode, you need to install Thor Client extension https://thorclient.com/",
   "request": {
     "url": {
-      "raw": "http://localhost:3000/auth/sign_up",
+      "raw": "http://localhost:3000/auth/login",
       "query": []
+    },
+    "body": {
+      "mode": "raw",
+      "options": {
+        "raw": {
+          "language": "json"
+        }
+      },
+      "raw": "{\r\n  \"email\": \"test2@gmail.com\",\r\n  \"password\": \"12@@#wsddjWW\"\r\n}"
     },
     "header": [
       {
@@ -11,17 +20,7 @@
         "value": "application/json"
       }
     ],
-    "method": "POST",
-    "body": {
-      "mode": "raw",
-      "graphql": {},
-      "options": {
-        "raw": {
-          "language": "json"
-        }
-      },
-      "raw": "{\r\n  \"username\": \"manu02\",\r\n  \"email\": \"test2@gmail.com\",\r\n  \"credential\": \"12@@#wsddjWW\"\r\n}"
-    }
+    "method": "POST"
   },
   "event": {
     "assert": [
@@ -36,7 +35,7 @@
   },
   "response": {
     "keys": [
-      "success"
+      "message"
     ]
   }
 }

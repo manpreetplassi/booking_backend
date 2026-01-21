@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+  # Your existing database (e.g., Postgres or MySQL)
   db:
     image: postgres:15
     container_name: nest_postgres
@@ -13,11 +14,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # Adding Redis for Sessions
+  redis:
+    image: redis:alpine
+    container_name: session_redis
+    ports:
+      - "6379:6379"
+
 volumes:
   postgres_data:
 
 
-#   version: '3.8'
+# version: '3.8'
 # services:
 #   db:
 #     image: postgres:15
@@ -30,8 +38,7 @@ volumes:
 #     ports:
 #       - '5432:5432'
 #     volumes:
-#       # CHANGE THIS LINE: 
-#       # ./pgdata is the folder that will appear on your PC
-#       - ./pgdata:/var/lib/postgresql/data
+#       - postgres_data:/var/lib/postgresql/data
 
-# # REMOVE the global volumes block that was here
+# volumes:
+#   postgres_data:

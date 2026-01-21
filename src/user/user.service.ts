@@ -13,8 +13,6 @@ export class UserService {
         @InjectRepository(User)
         private userRepo: Repository<User>,
 
-        @InjectRepository(UserAuth)
-        private userAuthRepo: Repository<UserAuth>
     ) { }
     async createUser(dto: RegisterLocalUserDto): Promise<object> {
         const isUserExist = await this.userRepo.findOne({
@@ -54,6 +52,8 @@ export class UserService {
         }
     }
 
-
-
+    async getUserData(request: any) {
+        const userProfile = await this.userRepo.findOneById(request.user.id)
+        return userProfile;
+    }
 }
