@@ -1,4 +1,6 @@
 import { IsEmail, IsString, MinLength, MaxLength } from 'class-validator';
+import { Request } from 'express';
+import { Profile } from 'passport-google-oauth20';
 
 export class RegisterLocalUserDto {
   @IsString()
@@ -14,13 +16,22 @@ export class RegisterLocalUserDto {
   credential: string;
 }
 
-export class RegisterUserAuthDto {
-  id: string;
-  user: string;
-  providerType: string; // 'google', 'local', 'github'
-  providerId: AuthProviderType; // Google `sub`, GitHub id, etc.
-  credential: string | null; // hashed password (null for OAuth)
-  providerMetadata: Record<string, any> | null;
+export interface GoogleUser {
+  // user: {
+    googleId: string;    // The 'id' from profile
+    email: string;       // emails[0].value
+    name: string;
+    firstName: string;   // name.givenName
+    lastName: string;    // name.familyName
+    picture: string;     // photos[0].value
+    accessToken: string; // Used for revoking/disconnecting
+    refreshToken?: string; 
+    emailVerified: Boolean;
+  // },
+}
+// Use this interface in your Controllers
+export interface RequestWithUser extends Request {
+  user: GoogleUser;
 }
 
 export type AuthProviderType = 'local' | 'google' | 'github';

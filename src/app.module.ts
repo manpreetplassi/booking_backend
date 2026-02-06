@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { HospitalModule } from './hospital/hospital.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -19,7 +21,11 @@ import { DataSource } from 'typeorm';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    AuthModule, UserModule
+    ConfigModule.forRoot({
+      isGlobal: true, // Makes the module available everywhere
+      envFilePath: '.env', // Path to your file (default is .env)
+    }),
+    AuthModule, UserModule, HospitalModule
   ],
   controllers: [AppController],
   providers: [AppService],})

@@ -14,7 +14,7 @@ export class User {
     email: string;
 
     @Column()
-    username: string;
+    username?: string;
 
     @Column({ nullable: true })
     avatar_url: string;
