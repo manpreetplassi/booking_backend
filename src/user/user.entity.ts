@@ -1,4 +1,5 @@
 
+import { Hospital } from 'src/hospital/hospital.entity';
 import { Entity, Column, PrimaryColumn, PrimaryGeneratedColumn, CreateDateColumn, Unique, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 // progile table
@@ -24,6 +25,13 @@ export class User {
     // 🔑 IMPORTANT RELATION
     @OneToMany(() => UserAuth, (auth) => auth.user)
     authProviders: UserAuth[];
+
+    // one owner can have many hospitals
+    @OneToMany(
+        () => Hospital,
+        (hospital) => hospital.owner
+    )
+    hospitals: Hospital[]
 
     @CreateDateColumn({ type: "timestamp" })
     created_at: Date;
