@@ -30,21 +30,21 @@ export class Hospital {
 
 export const sqlQuery = `
     CREATE table hospital(
-        id UUID Default gen_randon_uuid() PRIMARY KEY,
+        id UUID Default gen_random_uuid() PRIMARY KEY,
         name varchar(225),
         email varchar(100),
         phone BIGINT,
         reg_number varchar(100),
 
         -- the relation col --
-        owner_id UUID NOT NULL
+        owner_id UUID NOT NULL,
 
         -- relation defination --
         CONSTRAINT fk_hospital_owner
         FOREIGN KEY (owner_id)
-        REFERENCE user(id)
+        REFERENCES "user"(id)
         ON DELETE cascade
-    )
+    );
 
-    CREATE EXTENTION IF NOT EXISTS "pgcripto";
+    CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 `

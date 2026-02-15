@@ -12,7 +12,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', 
+      host: 'localhost',
       port: 5432,
       username: 'user123',
       password: 'password123',
@@ -28,7 +28,8 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule, UserModule, HospitalModule
   ],
   controllers: [AppController],
-  providers: [AppService],})
+  providers: [AppService],
+})
 export class AppModule {
   constructor(private dataSource: DataSource) { }
 }

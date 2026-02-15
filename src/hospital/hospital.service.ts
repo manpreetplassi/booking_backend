@@ -1,7 +1,6 @@
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { HOSPITAL_DATA, UPDATE_HOSPITAL } from './hospital.types';
-import { sqlQuery } from './hospital.entity';
 
 @Injectable()
 export class HospitalService {
@@ -11,7 +10,6 @@ export class HospitalService {
 
     async createHospital(createDto: HOSPITAL_DATA, userId: string) {
         try {
-            await this.dataSource.query(sqlQuery);
             const response = await this.dataSource.transaction(async (manager) => {
                 const isExist = await manager.query(
                     `SELECT EXISTS(select 1 from hospital 
@@ -24,7 +22,7 @@ export class HospitalService {
                 if (isExist[0].exists) {
                     throw new ConflictException('User with this email already exists');
                 }
-                await manager.query(
+                return await manager.query(
                     `INSERT INTO hospital (name, email, phone, reg_number, owner_id)
                     Values ( $1, $2, $3, $4, $5 ) RETURNING *`,
                     [
@@ -36,6 +34,7 @@ export class HospitalService {
                     ]
                 )
             })
+            return response; // add error handling in there
         } catch (error) {
             const DUPLICATE_KEY_ERROR_CODE = 23505
             if (error.code == DUPLICATE_KEY_ERROR_CODE) {
@@ -59,7 +58,7 @@ export class HospitalService {
             }
 
             return await this.dataSource.query(
-                `SELECT * FROM hospital 
+                `SELECT * FROM hospital
                 LIMIT $1 OFFSET $2`, [limit, offset]
             )
         } catch (error) {
@@ -89,7 +88,8 @@ export class HospitalService {
         const setClouse = keys.map((key, index) =>
             `${key} = $${index + 1}`
         ).join(', ')
-        const values = Object.values(updateDto) //It creates a list of all data values stored inside an object.
+        const values = Object.values(dtoToUpdate) //It creates a list of all data values stored inside an object.
+        values.push(hospitalId)
         const query = `UPDATE hospital set ${setClouse} where id = $${values.length} RETURNING *`
         try {
             const response = await this.dataSource.query(query, values)
